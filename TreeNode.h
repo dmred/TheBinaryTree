@@ -26,10 +26,10 @@ public:
 	TreeNode(const NODETYPE &a) :data(a), right(nullptr), left(nullptr) {};
 	NODETYPE get_data();
 protected:
-	TreeNode* left;           /* указатель на левого ребенка */
-	TreeNode* right;          /* указатель на правого ребенка */
-	TreeNode* parent;         /* указатель на родителя */
-	NODETYPE data;            /* ключ */
+	TreeNode* left;           // СѓРєР°Р·Р°С‚РµР»СЊ РЅР° Р»РµРІРѕРіРѕ РїРѕС‚РѕРјРєР°
+	TreeNode* right;          // СѓРєР°Р·Р°С‚РµР»СЊ РЅР° РїСЂР°РІРѕРіРѕ РїРѕС‚РѕРјРєР°
+	TreeNode* parent;         // СѓРєР°Р·Р°С‚РµР»СЊ РЅР° СЂРѕРґРёС‚РµР»СЏ 
+	NODETYPE data;            // Р·РЅР°С‡РµРЅРёРµ
 };
 
 
