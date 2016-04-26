@@ -1,18 +1,18 @@
-#include "node.h"
+#include "TreeNode.h"
 template <class NODETYPE>
 class Tree
 {
 public:
-	Tree() :root(nullptr) {};
+	Tree():root(nullptr) {};
 	int count;
-	Tree(int k) : root(nullptr), count(k) {};/* конструктор */
-	int insert_node(const NODETYPE &);                         /* вставляет узел */
-	TreeNode<NODETYPE>* delete_node(TreeNode<NODETYPE> *);     /* удаляет узел */
-	TreeNode<NODETYPE>* find(TreeNode<NODETYPE>*, const NODETYPE &);	/*поиск */
-	TreeNode<NODETYPE> *get_root();                            /* возвращает указатель на корень дерева */
-	void inorder_walk(TreeNode<NODETYPE>*);                    /* печатает все ключи в неубывающем порядке */
-	TreeNode<NODETYPE>* find_succsessor(const NODETYPE &);     /* находит элемент с ключем, следующим за данным числом */
-	TreeNode<NODETYPE>* find_max(TreeNode<NODETYPE>*);         /* находит узел с минимальным значением ключа и возвращает указатель на него */
+	Tree(int k) : root(nullptr), count(k) {};  
+	int insert_node(const NODETYPE &);                         
+	TreeNode<NODETYPE>* delete_node(TreeNode<NODETYPE> *);     
+	TreeNode<NODETYPE>* find(TreeNode<NODETYPE>*, const NODETYPE &);	
+	TreeNode<NODETYPE> *get_root();                            //СѓРєР°Р·Р°С‚РµР»СЊ РЅР° РєРѕСЂРµРЅСЊ
+	void inorder_walk(TreeNode<NODETYPE>*);                    //РїРµС‡Р°С‚СЊ РїРѕ РІРѕР·СЂР°СЃС‚Р°РЅРёСЋ
+	TreeNode<NODETYPE>* find_succsessor(const NODETYPE &);     // РЅР°С…РѕРґРёС‚ СЌР»РµРјРµРЅС‚ СЃ РєР»СЋС‡РµРј, СЃР»РµРґСѓСЋС‰РёРј Р·Р° РґР°РЅРЅС‹Рј С‡РёСЃР»РѕРј 
+	TreeNode<NODETYPE>* find_max(TreeNode<NODETYPE>*);         // РЅР°С…РѕРґРёС‚ СѓР·РµР» СЃ РјРёРЅРёРјР°Р»СЊРЅС‹Рј Р·РЅР°С‡РµРЅРёРµРј РєР»СЋС‡Р° Рё РІРѕР·РІСЂР°С‰Р°РµС‚ СѓРєР°Р·Р°С‚РµР»СЊ РЅР° РЅРµРіРѕ 
 	TreeNode<NODETYPE>* find_min(TreeNode<NODETYPE>*);
 
 	friend	ostream & operator << <>(ostream &output, Tree &);
@@ -21,7 +21,7 @@ public:
 	friend	fstream & operator >> <>(fstream &file, Tree<NODETYPE> &);
 
 private:
-	TreeNode<NODETYPE> *root;                                  /*корень */
+	TreeNode<NODETYPE> *root;                                  
 	bool print(const TreeNode<NODETYPE>&, ostream &);
 };
 
@@ -29,19 +29,19 @@ private:
 template<class NODETYPE>
 int Tree<NODETYPE>::insert_node(const NODETYPE &x)
 {
-	TreeNode<NODETYPE>* n = new TreeNode<NODETYPE>(x);  /* создаем новый узел, его мы будем вставлять */
+	TreeNode<NODETYPE>* n = new TreeNode<NODETYPE>(x);  /* СЃРѕР·РґР°РµРј РЅРѕРІС‹Р№ СѓР·РµР», РµРіРѕ РјС‹ Р±СѓРґРµРј РІСЃС‚Р°РІР»СЏС‚СЊ */
 	TreeNode<NODETYPE>* ptr;
 	TreeNode<NODETYPE>* ptr1 = 0;
 
-	n->parent = n->left = n->right = 0;          /* он - лист */
+	n->parent = n->left = n->right = 0;        
 	ptr = root;
-	while (ptr != 0)                     /* идем от корня и ищем подходящее место для нашего нового элемента, оно должно быть свободно */
+	while (ptr != 0)                     // РёРґРµРј РѕС‚ РєРѕСЂРЅСЏ Рё РёС‰РµРј СЃРІРѕР±РѕРґРЅРѕРµ РјРµСЃС‚Рѕ РґР»СЏ РЅР°С€РµРіРѕ РЅРѕРІРѕРіРѕ СЌР»РµРјРµРЅС‚Р°
 	{
-		ptr1 = ptr;                 /* будущий родитель нового узла */
-		if (x < ptr->get_data())  /* по определению нашего дерева - слева значение ключа меньше родителя, */
+		ptr1 = ptr;                 // Р±СѓРґСѓС‰РёР№ СЂРѕРґРёС‚РµР»СЊ РІСЃС‚Р°РІР»СЏРµРјРѕРіРѕ СѓР·Р»Р° 
+		if (x < ptr->get_data())  
 			ptr = ptr->left;
 		else
-			ptr = ptr->right;   /* справа - больше */
+			ptr = ptr->right;   
 	}
 	n->parent = ptr1;
 	if (ptr1 == 0)
@@ -64,16 +64,16 @@ TreeNode<NODETYPE>* Tree<NODETYPE>::delete_node(TreeNode<NODETYPE> *z)
 	TreeNode<NODETYPE>* y;
 	TreeNode<NODETYPE>* x;
 
-	if (z->left == 0 || z->right == 0)               /* в этой и следующих двух строках ищем вершину y, которую мы потом вырежем из дерева. Это либо z, либо следующий за z */
+	if (z->left == 0 || z->right == 0)               // РІ СЌС‚РѕР№ Рё СЃР»РµРґСѓСЋС‰РёС… РґРІСѓС… СЃС‚СЂРѕРєР°С… РёС‰РµРј РІРµСЂС€РёРЅСѓ y, РєРѕС‚РѕСЂСѓСЋ РјС‹ РїРѕС‚РѕРј РІС‹СЂРµР¶РµРј РёР· РґРµСЂРµРІР°. Р­С‚Рѕ Р»РёР±Рѕ z, Р»РёР±Рѕ СЃР»РµРґСѓСЋС‰РёР№ Р·Р° z 
 		y = z;
 	else
 		y = find_succsessor(z->get_data());
 
-	if (y->left != 0)                                  /* x - указатель на существующего ребенка y или 0 если таковых нет */
+	if (y->left != 0)                                  // x - СѓРєР°Р·Р°С‚РµР»СЊ РЅР° СЃСѓС‰РµСЃС‚РІСѓСЋС‰РµРіРѕ СЂРµР±РµРЅРєР° y РёР»Рё 0 РµСЃР»Рё С‚Р°РєРѕРІС‹С… РЅРµС‚ 
 		x = y->left;
 	else
 		x = y->right;
-	if (x != 0)                                        /* эта и следующие 9 строк - вырезание y */
+	if (x != 0)                                        //РІС‹СЂРµР·Р°РµРј
 		x->parent = y->parent;
 	if (y->parent == 0)
 		root = x;
@@ -84,7 +84,7 @@ TreeNode<NODETYPE>* Tree<NODETYPE>::delete_node(TreeNode<NODETYPE> *z)
 		else
 			(y->parent)->right = x;
 	}
-	if (y != z)                                        /* если мы вырезали вершин, отличную от z, то ее данные перемещаем в z */
+	if (y != z)                                        // РєРѕРіРґР° РјС‹ РІС‹СЂРµР·Р°Р»Рё РІРµСЂС€РёРЅСѓ, С‚Рѕ РµРµ РґР°РЅРЅС‹Рµ РїРѕРјРµС‰Р°РµРј РІ z */
 		z->data = y->get_data();
 	return y;
 }
@@ -119,15 +119,14 @@ TreeNode<NODETYPE>* Tree<NODETYPE>::get_root()
 template<class NODETYPE>
 TreeNode<NODETYPE>* Tree<NODETYPE>::find_succsessor(const NODETYPE & val)
 {
-	TreeNode<NODETYPE>* x = find(root, val);                     /* получим указатель на ноду с ключем val */
+	TreeNode<NODETYPE>* x = find(root, val);                     // РїРѕР»СѓС‡РёРј СѓРєР°Р·Р°С‚РµР»СЊ РЅР° node СЃ Р·РЅР°С‡РµРЅРёРµРј val 
 	TreeNode<NODETYPE>* y;
 	if (x == 0)
 		return 0;
-	if (x->right != 0)                                                /* если у нее есть правые дети, то следующий элемент - минимальный в правом поддереве */
+	if (x->right != 0)                                                // РµСЃР»Рё Сѓ РЅРµРµ РµСЃС‚СЊ РїСЂР°РІС‹Рµ РїРѕС‚РѕРјРєРё, С‚Рѕ СЃР»РµРґСѓСЋС‰РёР№ СЌР»РµРјРµРЅС‚ - РјРёРЅРёРјР°Р»СЊРЅС‹Р№ РІ РїСЂР°РІРѕРј РїРѕРґРґРµСЂРµРІРµ 
 		return find_min(x->right);
 	y = x->parent;
-	while (y != 0 && x == y->right)                                   /* иначе - идем вверх и ищем первый элемент, являющийся левым
-																	  потомком своего родителя */
+	while (y != 0 && x == y->right)                                   //РёРЅР°С‡Рµ - РёРґРµРј РІРІРµСЂС… Рё РёС‰РµРј РїРµСЂРІС‹Р№ СЌР»РµРјРµРЅС‚, СЏРІР»СЏСЋС‰РёР№СЃСЏ Р»РµРІС‹Рј РїРѕС‚РѕРјРєРѕРј СЃРІРѕРµРіРѕ СЂРѕРґРёС‚РµР»СЏ 
 	{
 		x = y;
 		y = y->parent;
@@ -137,7 +136,7 @@ TreeNode<NODETYPE>* Tree<NODETYPE>::find_succsessor(const NODETYPE & val)
 template<class NODETYPE>
 TreeNode<NODETYPE>* Tree<NODETYPE>::find_max(TreeNode<NODETYPE>* x)
 {
-	while (x->right != 0)                              /* здесь все очевидно - самыое максимальное значение у самого правого */
+	while (x->right != 0)                            
 		x = x->right;
 	return x;
 }
