@@ -1,14 +1,12 @@
-// ConsoleApplication28.cpp: определяет точку входа для консольного приложения.
+// ConsoleApplication28.cpp: РѕРїСЂРµРґРµР»СЏРµС‚ С‚РѕС‡РєСѓ РІС…РѕРґР° РґР»СЏ РєРѕРЅСЃРѕР»СЊРЅРѕРіРѕ РїСЂРёР»РѕР¶РµРЅРёСЏ.
 //
 
-
-
-/*-----------------------------------------------------------------------------------------------------------------*/
 
 #include "Tree.h"
 
 int main()
 {
+
 	Tree<int> intTree(10);
 	int a;
 	cout << "10 numbers:" << endl;
@@ -19,11 +17,10 @@ int main()
 	}
 
 	intTree.inorder_walk(intTree.get_root());
-	cout << "Enter node value want to delete:";
+	cout << "choose the one node u'd like to delete:";
 	cin >> a;
 	intTree.delete_node(intTree.find(intTree.get_root(), a));
-	cout << endl << "Now:" << endl;
+	cout << endl << "The actual tree:" << endl;
 	intTree.inorder_walk(intTree.get_root());
-	cout << endl << "Search:" << endl;
 	system("pause");
 }
